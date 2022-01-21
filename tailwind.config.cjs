@@ -5,11 +5,13 @@ const config = {
 		extend: {
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
+				lora: ['Lora', 'serif'],
 				dancing: ['Dancing Script', 'cursive']
 			},
 			colors: {
-				care: '#a186bd',
-				darkCare: '#605ca8'
+				care: '#E093E5',
+				darkCare: '#605ca8',
+				grayCare: '#333333'
 			}
 		}
 	},
