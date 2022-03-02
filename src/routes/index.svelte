@@ -2,7 +2,7 @@
 	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
 	// import { Options } from '@splidejs/splide';
 	import '@splidejs/splide/dist/css/splide.min.css';
-	let streams = [
+	const streams = [
 		{
 			name: 'YouTube',
 			link: 'https://www.youtube.com/channel/UCFrIoCS-BaPjSeA7r2UWNWA/featured',
@@ -14,7 +14,7 @@
 			icon: '/img/icons/twitch.svg'
 		}
 	];
-	let games = [
+	const games = [
 		{
 			name: 'Getting Over It',
 			img: 'https://s3.ap-northeast-1.wasabisys.com/careless/image/games/getting-over-it.jpeg',
@@ -196,6 +196,10 @@
 			link: 'https://www.youtube.com/watch?v=sTSp39veim0'
 		}
 	];
+	const loreText = [
+		"Heya, I'm Careless The Stray not much to share when it comes to deep lore. Just a random stray that's wandered the internet for a little too long, who found herself falling headfirst into the VTuber world one excited afternoon completely unprepared and unqualified with no plan in sight lol. ",
+		'Sometimes a witch, sometimes a (fake)cat girl, most of the time pretty lame! I’m kinda terrible at everything I do, but if your down to watch me stumble along the journey it might be fun to figure it all out on the way together! So, if your weary from your internet travels come rest awhile my fellow stray!'
+	];
 	const heroImage2 =
 		'https://s3.ap-northeast-1.wasabisys.com/careless/image/cropped/Yandere_Trans_blood(1).png';
 	const heroImage1 =
@@ -223,7 +227,7 @@
 		href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 		rel="stylesheet"
 	/>
-    <title>CarelessTheStray</title>
+	<title>CarelessTheStray</title>
 </head>
 <template>
 	<div class="flex flex-col bg-black text-white font-poppins text-center min-h-screen">
@@ -249,18 +253,26 @@
 				<img src={chosenHero} alt="Careless The Stray" class="max-h-25" />
 			</section>
 			<div class=" flex flex-col md:align-middle justify-center md:w-[25rem] text-left ml-12">
-				<h2 class="text-5xl font-lora font-medium">About <span class="text-care">Care</span></h2>
-				<p class="text-lg mt-10">
-					A "yandere" VTuber that can change into a witch, or a cat. IDK she says she has no lore.
-				</p>
+				<h2 class="text-5xl font-lora font-medium mb-5">
+					About <span class="text-care">Care</span>
+				</h2>
+				{#each loreText as text}
+					<p class="text-lg mt-5">
+						{text}
+					</p>
+				{/each}
 			</div>
 		</div>
 		<div class="md:hidden flex flex-col md:flex-row align-middle mx-auto mt-12" id="hero">
 			<div class=" flex flex-col md:align-middle justify-center text-left ml-12">
-				<h2 class="text-5xl font-lora font-medium">About <span class="text-care">Care</span></h2>
-				<p class="text-lg mt-10">
-					A "yandere" VTuber that can change into a witch, or a cat. IDK she says she has no lore.
-				</p>
+				<h2 class="text-5xl font-lora font-medium mb-5">
+					About <span class="text-care">Care</span>
+				</h2>
+				{#each loreText as text}
+					<p class="text-lg mt-5">
+						{text}
+					</p>
+				{/each}
 			</div>
 			<section class="max-w-full h-25 mx-auto mt-8">
 				<img src={chosenHero} alt="Careless The Stray" class="max-h-96" />
@@ -315,7 +327,7 @@
 			</section>
 			<div class="flex flex-col align-middle justify-center mx-auto">
 				<h2 class="text-5xl font-lora mt-2 md:mt-12 font-semibold">Catch Care Live!</h2>
-				<div class="flex flex-row justify-evenly mt-4">
+				<div class="flex flex-row justify-evenly mt-4  mb-4">
 					{#each streams as stream}
 						<a target="_blank" href={stream.link}>
 							<section class="">
