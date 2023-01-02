@@ -30,13 +30,11 @@
 			<img
 				src={heroImage0}
 				alt="Careless The Stray"
-				class="w-64 max-h-64 mx-auto object-cover z-0"
+				class="w-64 max-h-64 mx-auto object-cover z-0 transition-all {y < scrollThreshold ? '-mb-32' : 'mb-0'}"
 				in:fade
 			/>
 			<div
-				class="bg-lilac text-seashell transition-all text-center h-32 {y < scrollThreshold
-					? '-mt-32'
-					: 'mt-0'} -mt-32 z-20 relative flex flex-col"
+				class="bg-lilac text-seashell text-center h-32 z-20 relative flex flex-col"
 			>
 				<MaterialSymbolsKeyboardArrowDown class="h-16 w-16 mx-auto mt-2 animate-pulse" />
 				{y}
