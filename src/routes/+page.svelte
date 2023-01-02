@@ -55,18 +55,21 @@
 	onMount(async () => {
 		const response = await fetch('/.netlify/functions/videos');
 		let rawData = await response.json();
-		data = rawData.data;
-		ready = true;
+		try {
+			data = rawData.data;
+			ready = true;
+		} catch {
+			console.log(rawData.statusCode);
+		}
 	});
 </script>
 
 <div class="flex flex-col">
 	<div class="flex flex-col gap-4 justify-between min-h-[75vh]">
 		<div
-			class="flex flex-col gap-2 top-0 sticky bg-onyx z-50 {hasScrolled ? 'py-2 ' : 'py-4 lg:py-8' } transition-all {y >
-			scrollThreshold
-				? 'shadow-lg'
-				: ''}"
+			class="flex flex-col gap-2 top-0 sticky bg-onyx z-50 {hasScrolled
+				? 'py-2 '
+				: 'py-4 lg:py-8'} transition-all {y > scrollThreshold ? 'shadow-lg' : ''}"
 			transition:fade
 		>
 			<h1
