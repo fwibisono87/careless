@@ -13,6 +13,6 @@
 	import '../app.css';
 </script>
 
-<div class="bg-onyx min-w-screen text-seashell py-8 font-poppins min-h-[200vh]">
+<div class="bg-onyx min-w-screen text-seashell font-poppins min-h-[120vh]">
 	<slot />
 </div>
