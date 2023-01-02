@@ -54,7 +54,7 @@
 
 	onMount(async () => {
 		const response = await fetch(
-			'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=100&playlistId=UUFrIoCS-BaPjSeA7r2UWNWA&key=' +
+			'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=49&playlistId=UUFrIoCS-BaPjSeA7r2UWNWA&key=' +
 				key
 		);
 		data = await response.json();
@@ -108,7 +108,8 @@
 			</div>
 		</div>
 		{#if y > scrollThreshold}
-			<div class="grid grid-cols-5 gap-4">
+			<div class="grid grid-cols-2 lg:grid-cols-5 gap-4 w-[85vw] mx-auto" transition:fade>
+				<h1 class="text-2xl font-semibold text-greenc my-auto text-center">Recent Streams</h1>
 				{#if ready}
 					{#each data.items as stream}
 						<div class="flex flex-col">
@@ -116,8 +117,18 @@
 								src={stream.snippet.thumbnails['high'].url}
 								class="w-64 max-h-64 mx-auto shadow-lg"
 							/>
-							<span class="mx-auto">
-								{stream.snippet.title.split(' - ').pop()}
+							<span class="mx-auto text-center">
+								<span class="font-semibold text-greenc">
+									{stream.snippet.title.split(' - ')[1]}
+								</span>
+								<br>
+								<span class="text-sm">
+									{stream.snippet.title.split(' - ')[0]}
+								</span>
+								
+								
+								
+								<!-- {stream.snippet.title} -->
 							</span>
 						</div>
 					{/each}
