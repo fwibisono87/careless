@@ -8,10 +8,10 @@
 	export const yScroll = writable(0);
 	let y = 0;
 	const scrollThreshold = 10;
-
-	const key = import.meta.env.VITE_SECRET_KEY;
+	let hasScrolled: Boolean;
 
 	$: yScroll.set(y);
+	$: y < scrollThreshold ? (hasScrolled = true) : (hasScrolled = false);
 
 	const heroImage0 = 'https://is3.cloudhost.id/francis/public/careless/image/careless_profile.png';
 
@@ -53,12 +53,9 @@
 	let ready = false;
 
 	onMount(async () => {
-		const response = await fetch(
-			'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=49&playlistId=UUFrIoCS-BaPjSeA7r2UWNWA&key=' +
-				key
-		);
-		data = await response.json();
-		console.log(data);
+		const response = await fetch('/.netlify/functions/videos');
+		let rawData = await response.json();
+		data = rawData.data;
 		ready = true;
 	});
 </script>
@@ -66,16 +63,20 @@
 <div class="flex flex-col">
 	<div class="flex flex-col gap-4 justify-between min-h-[75vh]">
 		<div
-			class="flex flex-col gap-2 top-0 sticky bg-onyx z-50 py-4 lg:py-8 transition-all {y >
+			class="flex flex-col gap-2 top-0 sticky bg-onyx z-50 {hasScrolled ? 'py-2 ' : 'py-4 lg:py-8' } transition-all {y >
 			scrollThreshold
 				? 'shadow-lg'
 				: ''}"
 			transition:fade
 		>
-			<h1 class="font-bold text-2xl lg:text-5xl text-greenc text-center">
+			<h1
+				class="font-bold {hasScrolled
+					? 'text-2xl lg:text-5xl'
+					: 'text-lg lg:text-xl'}  text-greenc text-center"
+			>
 				CarelessTheStray<span class="text-base text-lilac">.com</span>
 			</h1>
-			{#if y < scrollThreshold}
+			{#if hasScrolled}
 				<span
 					class="text-xl lg:text-3xl font-bold text-lilac text-center font-courgette"
 					transition:fade>Home of your favourite stray!</span
@@ -86,14 +87,14 @@
 			<img
 				src={heroImage0}
 				alt="Careless The Stray"
-				class="w-64 max-h-64 mx-auto object-cover z-0 drop-shadow transition-all {y <
+				class="w-64 max-h-64 mx-auto object-cover z-0 drop-shadow transition-all mt-1 {y <
 				scrollThreshold
 					? '-mb-32'
 					: 'mb-0'}"
 				in:fade
 			/>
 			<div class="bg-lilac text-seashell text-center min-h-32 z-20 relative flex flex-col">
-				{#if y < scrollThreshold}
+				{#if hasScrolled}
 					<MaterialSymbolsKeyboardArrowDown class="h-16 w-16 mx-auto mt-2 animate-pulse" />
 				{:else}
 					<p class="mx-auto w-[80%] lg:w-[35%] font-semibold py-4" in:fade>
@@ -102,7 +103,7 @@
 						handle the cringe and technical difficulties, then welcome aboard!"
 					</p>
 				{/if}
-				{#if y < scrollThreshold}
+				{#if hasScrolled}
 					<div class="w-full h-32 bg-onyx" />
 				{/if}
 			</div>
@@ -118,16 +119,14 @@
 								class="w-64 max-h-64 mx-auto shadow-lg"
 							/>
 							<span class="mx-auto text-center">
-								<span class="font-semibold text-greenc">
+								<span class="font-semibold text-greenc mt-2">
 									{stream.snippet.title.split(' - ')[1]}
 								</span>
-								<br>
+								<br />
 								<span class="text-sm">
 									{stream.snippet.title.split(' - ')[0]}
 								</span>
-								
-								
-								
+
 								<!-- {stream.snippet.title} -->
 							</span>
 						</div>
