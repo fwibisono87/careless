@@ -51,12 +51,15 @@
 	}
 
 	let ready = false;
+	let streamTitleFirst = false;
+
+	const handleStreamTitleToggle = () => {
+		streamTitleFirst = !streamTitleFirst;
+	};
 
 	onMount(async () => {
 		const response = await fetch('/.netlify/functions/videos');
-		console.log(response)
 		let rawData = await response.json();
-		console.log('ini rawsata', rawData)
 		try {
 			data = rawData.data;
 			ready = true;
@@ -115,7 +118,23 @@
 		</div>
 		{#if y > scrollThreshold}
 			<div class="grid grid-cols-2 lg:grid-cols-5 gap-4 w-[85vw] mx-auto" transition:fade>
-				<h1 class="text-2xl font-semibold text-greenc my-auto text-center">Recent Streams</h1>
+				<div class="flex flex-col justify-center gap-4">
+					<h1 class="text-2xl font-semibold text-greenc text-center">Recent Streams</h1>
+					<label class="relative inline-flex items-center cursor-pointer mx-auto">
+						<input
+							bind:checked={streamTitleFirst}
+							on:click={handleStreamTitleToggle}
+							type="checkbox"
+							value=""
+							class="sr-only peer"
+						/>
+						<div
+							class="w-11 h-6 bg-lilac peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-greenc dark:peer-focus:ring-greenc rounded-full peer dark:bg-lilac peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-lilac after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-lilac peer-checked:bg-greenc"
+						/>
+						<span class="ml-3 text-sm">Stream title first</span>
+					</label>
+				</div>
+
 				{#if ready}
 					{#each data.items as stream}
 						<div class="flex flex-col">
@@ -123,13 +142,27 @@
 								src={stream.snippet.thumbnails['high'].url}
 								class="w-64 max-h-64 mx-auto shadow-lg"
 							/>
-							<span class="mx-auto text-center">
-								<span class="font-semibold text-greenc mt-2">
-									{stream.snippet.title.split(' - ')[1]}
+							<span
+								class="mx-auto text-center transition-all flex {streamTitleFirst
+									? 'flex-col-reverse'
+									: 'flex-col'}"
+							>
+								<span
+									class="{streamTitleFirst
+										? 'text-sm'
+										: 'font-semibold text-greenc mt-2'} transition-all"
+									transition:fly
+								>
+									{stream.snippet.title.split(' - ')[0]}
 								</span>
 								<br />
-								<span class="text-sm">
-									{stream.snippet.title.split(' - ')[0]}
+								<span
+									class="{!streamTitleFirst
+										? 'text-sm'
+										: 'font-semibold text-greenc mt-2'} transition-all"
+									transition:fly
+								>
+									{stream.snippet.title.split(' - ')[1]}
 								</span>
 
 								<!-- {stream.snippet.title} -->
