@@ -52,7 +52,11 @@
 
 	let ready = false;
 	let streamTitleFirst = false;
+	let show8Streams = true
 
+	const handleShowAllStreamsToggle = () => {
+		show8Streams = !show8Streams
+	}
 	const handleStreamTitleToggle = () => {
 		streamTitleFirst = !streamTitleFirst;
 	};
@@ -117,7 +121,7 @@
 			</div>
 		</div>
 		{#if y > scrollThreshold}
-			<div class="grid grid-cols-2 lg:grid-cols-5 gap-4 w-[85vw] mx-auto" transition:fade>
+			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-[85vw] mx-auto" transition:fade>
 				<div class="flex flex-col justify-center gap-4">
 					<h1 class="text-2xl font-semibold text-greenc text-center">Recent Streams</h1>
 					<label class="relative inline-flex items-center cursor-pointer mx-auto">
@@ -128,48 +132,66 @@
 							value=""
 							class="sr-only peer"
 						/>
+						
 						<div
 							class="w-11 h-6 bg-lilac peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-greenc dark:peer-focus:ring-greenc rounded-full peer dark:bg-lilac peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-lilac after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-lilac peer-checked:bg-greenc"
 						/>
-						<span class="ml-3 text-sm">Stream title first</span>
+						<span class="ml-3 text-sm hidden md:block">Stream title first</span>
 					</label>
+					<span class="ml-3 text-sm md:hidden text-center">Stream title first</span>
 				</div>
 
 				{#if ready}
-					{#each data.items as stream}
-						<div class="flex flex-col">
+					{#each (show8Streams ? data.items.slice(0, 8): data.items) as stream}
+						<a
+							class="flex flex-col"
+							href={'https://www.youtube.com/watch?v=' + stream.snippet.resourceId.videoId}
+							target="_blank"
+							rel="noreferrer"
+						>
 							<img
 								src={stream.snippet.thumbnails['high'].url}
 								class="w-64 max-h-64 mx-auto shadow-lg"
+								alt={stream.snippet.title}
 							/>
 							<span
-								class="mx-auto text-center transition-all flex {streamTitleFirst
+								class="mx-auto text-center transition-all w-full flex {streamTitleFirst
 									? 'flex-col-reverse'
 									: 'flex-col'}"
 							>
-								<span
+								<div
 									class="{streamTitleFirst
 										? 'text-sm'
-										: 'font-semibold text-greenc mt-2'} transition-all"
+										: 'font-semibold text-greenc mt-2'} transition-all min-h-[3rem] break-words align-middle flex"
 									transition:fly
 								>
-									{stream.snippet.title.split(' - ')[0]}
+								<span class="my-auto w-full">
+									{stream.snippet.title.split(' - ')[1]}
 								</span>
+									
+								</div>
 								<br />
 								<span
 									class="{!streamTitleFirst
 										? 'text-sm'
-										: 'font-semibold text-greenc mt-2'} transition-all"
+										: 'font-semibold text-greenc mt-2'} transition-all min-h-[3rem] break-words align-middle flex"
 									transition:fly
 								>
-									{stream.snippet.title.split(' - ')[1]}
+								<span class="my-auto w-full">
+									{stream.snippet.title.split(' - ')[0]}
+								</span>
 								</span>
 
 								<!-- {stream.snippet.title} -->
 							</span>
-						</div>
+						</a>
 					{/each}
+					<div class="flex flex-col justify-center gap-4">
+						<h1 class="text-2xl font-semibold text-greenc text-center underline cursor-pointer" on:click={handleShowAllStreamsToggle}>Show {show8Streams ? 'More' : 'Less'} Streams</h1>
+					</div>
 				{/if}
+
+
 			</div>
 		{/if}
 	</div>
