@@ -54,9 +54,11 @@
 
 	onMount(async () => {
 		const response = await fetch('/.netlify/functions/videos');
+		console.log(response)
 		let rawData = await response.json();
+		console.log('ini rawsata', rawData)
 		try {
-			data = rawData.data;
+			data = rawData;
 			ready = true;
 		} catch {
 			console.log(rawData.statusCode);
