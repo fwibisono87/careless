@@ -32,7 +32,7 @@
 	<div
 		on:mouseenter={handleShowSocials}
 		on:mouseleave={handleHideSocials}
-		class="flex flex-col sticky bottom-24 bg-onyx shadow-xl border-y-2 border-r-2 border-greenc rounded-r-lg z-50 py-4 gap-2 justify-center {hoverSocials
+		class="flex flex-col sticky bottom-24 bg-onyx shadow-xl border-y-2 border-r-2 border-greenc rounded-r-lg z-50 py-4 gap-2 justify-center w-16 lg:{hoverSocials
 			? 'w-16'
 			: 'w-8'} transition-all"
 	>
@@ -43,7 +43,7 @@
 			title="Twitch Channel"
 		>
 			<JamTwitch
-				class="w-8 h-8 mx-auto text-greenc shadow-md {hoverSocials ? '' : '-ml-4'} transition-all"
+				class="w-8 h-8 mx-auto text-greenc shadow-md  lg:{hoverSocials ? '' : '-ml-4'} transition-all"
 			/>
 		</a>
 		<a
@@ -53,17 +53,17 @@
 			title="YouTube Channel"
 		>
 			<JamYoutube
-				class="w-8 h-8 mx-auto text-greenc shadow-md {hoverSocials ? '' : '-ml-4'} transition-all"
+				class="w-8 h-8 mx-auto text-greenc shadow-md lg:{hoverSocials ? '' : '-ml-4'} transition-all"
 			/>
 		</a>
 		<a href="https://discord.gg/hh2hHjwkjs" target="_blank" rel="noreferrer" title="Discord Server">
 			<JamDiscord
-				class="w-8 h-8 mx-auto text-greenc shadow-md {hoverSocials ? '' : '-ml-4'} transition-all"
+				class="w-8 h-8 mx-auto text-greenc shadow-md lg:{hoverSocials ? '' : '-ml-4'} transition-all"
 			/>
 		</a>
 		<a href="https://twitter.com/CarelessStray" target="_blank" rel="noreferrer" title="Twitter">
 			<JamTwitter
-				class="w-8 h-8 mx-auto text-greenc shadow-md {hoverSocials ? '' : '-ml-4'} transition-all"
+				class="w-8 h-8 mx-auto text-greenc shadow-md lg:{hoverSocials ? '' : '-ml-4'} transition-all"
 			/>
 		</a>
 	</div>
