@@ -186,9 +186,11 @@
 							</span>
 						</a>
 					{/each}
+					{#if show8Streams}
 					<div class="flex flex-col justify-center gap-4">
 						<h1 class="text-2xl font-semibold text-greenc text-center underline cursor-pointer" on:click={handleShowAllStreamsToggle}>Show {show8Streams ? 'More' : 'Less'} Streams</h1>
 					</div>
+					{/if}
 				{/if}
 
 
