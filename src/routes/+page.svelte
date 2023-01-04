@@ -58,7 +58,7 @@
 		let rawData = await response.json();
 		console.log('ini rawsata', rawData)
 		try {
-			data = rawData;
+			data = rawData.data;
 			ready = true;
 		} catch {
 			console.log(rawData.statusCode);
